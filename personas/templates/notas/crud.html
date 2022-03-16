@@ -1,0 +1,30 @@
+<h1>Gestion de notas</h1>
+<h2>Notas</h2>
+<table>
+    <thead>
+        <tr>
+        <th>Alumno</th>
+        <th>Asignatura</th>
+        <th>Nota 1</th>
+        <th>Nota 2</th>
+        <th>Nota 3</th>
+        <th>Definitva</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in notas %}
+    <tr>
+        <td>{{row.1}}</td>
+        <td>{{row.2}}</td>
+        <td>{{row.3}}</td>
+        <td>{{row.4}}</td>
+        <td>{{row.5}}</td>
+        <td>{{row.6}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    
+
+    <button>Nueva nota</button>
+</table>
