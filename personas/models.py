@@ -20,8 +20,7 @@ class Nota (models.Model):
     n2 = models.DecimalField(max_digits=4, decimal_places=2)
     n3 = models.DecimalField(max_digits=4, decimal_places=2)
     activo = models.CharField(max_length=1,default=1);
-    class Meta:
-        unique_together = (('alumno','asignatura','ano'),)
+   
 
 User = settings.AUTH_USER_MODEL
 

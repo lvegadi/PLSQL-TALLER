@@ -47,17 +47,34 @@ EXCEPTION
 END;
 
 CREATE OR REPLACE PROCEDURE sp_editar_notas(
+    v_nota_id NUMBER,
     v_alumno_id NUMBER,
     v_asignatura_id NUMBER,
+    year_ac NUMBER,
     v_n1 NUMBER,
     v_n2 NUMBER,
     v_n3 NUMBER,
     v_salida OUT NUMBER
  ) IS
  BEGIN
-    INSERT INTO personas_nota(alumno_id,asignatura_id,n1, n2, n3,ACTIVO)
-    VALUES (v_alumno_id, v_asignatura_id,v_n1, v_n2, v_n3,1);
-    COMMIT;
+    UPDATE personas_nota
+    SET ASIGNATURA_ID = v_asignatura_id, ALUMNO_ID = v_alumno_id, ANO = year_ac, N1 = v_n1, N2 = v_n2, N3 = v_n3
+    WHERE ID = v_nota_id;
+    v_salida := 1;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        v_salida := 0;
+END;
+
+CREATE OR REPLACE PROCEDURE sp_eliminar_notas(
+    v_nota_id NUMBER,
+    v_salida OUT NUMBER
+ ) IS
+ BEGIN
+    UPDATE personas_nota
+    SET ACTIVO = 0
+    WHERE ID = v_nota_id;
     v_salida := 1;
 
 EXCEPTION

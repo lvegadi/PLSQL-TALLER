@@ -23,7 +23,8 @@ def notas(request):
             data['alumnos'] = listar_alumnos()
         else:
              data['mensaje'] = 'No se pudo guardar'
-
+    #editar_nota(43,41, 1, 2025, 5, 5, 5)
+    #eliminar_nota(43)
     return render(request,'notas/crud.html',data)
 
 
@@ -64,4 +65,18 @@ def agregar_nota(alumno, asignatura,year, n1, n2 ,n3):
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_AGREGAR_NOTAS',[alumno, asignatura, year, n1, n2, n3,salida])
+    return salida.getvalue()
+
+def editar_nota(nota,alumno, asignatura,year, n1, n2 ,n3):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_EDITAR_NOTAS',[nota, alumno, asignatura, year, n1, n2, n3,salida])
+    return salida.getvalue()
+
+def eliminar_nota(nota):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_ELIMINAR_NOTAS',[nota,salida])
     return salida.getvalue()
