@@ -3,6 +3,7 @@
 <table>
     <thead>
         <tr>
+        <th>Alumno ID</th>
         <th>Alumno</th>
         <th>Asignatura</th>
         <th>Nota 1</th>
@@ -21,6 +22,7 @@
         <td>{{row.4}}</td>
         <td>{{row.5}}</td>
         <td>{{row.6}}</td>
+        <td>{{row.7}}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -28,3 +30,35 @@
 
     <button>Nueva nota</button>
 </table>
+
+<h2>NUEVO NOTA</h2>
+<form action="" method="POST">
+{% csrf_token %}
+
+    <label for="">Alumno</label>
+    <select name="alumno" id="alumno">
+        <option value="">Seleccionar</option>
+        {% for row in alumnos %}
+            <option value="{{row.0}}">{{row.1}}  {{row.2}}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="">Asignatuas</label>
+    <select name="asignatura" id="asignatura">
+        <option value="">Seleccionar</option>
+        {% for row in asignaturas %}
+            <option value="{{row.0}}">{{row.1}}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="">Nota 1</label>
+    <input type="number" name="n1" min="0.0" max="5.0" step="0.1">
+    <br>
+    <label for="">Nota 2</label>
+    <input type="number" name="n2" min="0.0" max="5.0" step="0.1">
+    <br>
+    <label for="">Nota 3</label>
+    <input type="number" name="n3" min="0.0" max="5.0" step="0.1">
+    <br>
+    <input type="submit" value="guardar">
+</form>
