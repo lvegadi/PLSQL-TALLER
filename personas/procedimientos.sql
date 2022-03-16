@@ -21,7 +21,7 @@ BEGIN
     OPEN asignaturas FOR SELECT * FROM personas_asignatura WHERE activo = '1';
 END;
 
-/* procedimiento al. para agregar notas del CRUD de notas
+/* procedimiento Para el CRUD
     salida = 1 --> se inserto la nota
     salida = 0 --> fallo el insert
 */
