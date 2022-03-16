@@ -6,6 +6,7 @@
         <th>Alumno ID</th>
         <th>Alumno</th>
         <th>Asignatura</th>
+        <th>año</th>
         <th>Nota 1</th>
         <th>Nota 2</th>
         <th>Nota 3</th>
@@ -23,6 +24,7 @@
         <td>{{row.5}}</td>
         <td>{{row.6}}</td>
         <td>{{row.7}}</td>
+        <td>{{row.8}}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -51,6 +53,9 @@
         {% endfor %}
     </select>
     <br>
+    <label for="">año</label>
+    <select name="year" id="year"></select>
+    <br>
     <label for="">Nota 1</label>
     <input type="number" name="n1" min="0.0" max="5.0" step="0.1">
     <br>
@@ -62,3 +67,20 @@
     <br>
     <input type="submit" value="guardar">
 </form>
+
+    <p>{{mensaje}}</p>
+
+    <select id="year"></select>
+
+    <script>
+        var min = 2020,
+        max = 2030,
+        select = document.getElementById('year');
+    
+        for (var i = min; i<=max; i++){
+           var opt = document.createElement('option');
+           opt.value = i;
+           opt.innerHTML = i;
+           select.appendChild(opt);
+        }
+    </script>

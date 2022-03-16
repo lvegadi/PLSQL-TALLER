@@ -15,10 +15,13 @@ class Asignatura (models.Model):
 class Nota (models.Model):    
     alumno = models.ForeignKey(Alumno, on_delete=models.PROTECT)
     asignatura = models.ForeignKey(Asignatura, on_delete=models.PROTECT)
+    ano = models.DecimalField(max_digits=4,decimal_places=0,default=2022)
     n1 = models.DecimalField(max_digits=4, decimal_places=2)
     n2 = models.DecimalField(max_digits=4, decimal_places=2)
     n3 = models.DecimalField(max_digits=4, decimal_places=2)
     activo = models.CharField(max_length=1,default=1);
+    class Meta:
+        unique_together = (('alumno','asignatura','ano'),)
 
 User = settings.AUTH_USER_MODEL
 

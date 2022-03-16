@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.db import connection
 # Create your views here.
 def notas(request):
+
     data = {
         'notas':listar_notas(),
         'alumnos':listar_alumnos(),
@@ -12,12 +13,14 @@ def notas(request):
     if request.method == 'POST':
         alumno = request.POST.get('alumno')
         asignatura = request.POST.get('asignatura')
+        year = request.POST.get('year')
         n1 = request.POST.get('n1')        
         n2 = request.POST.get('n2')
         n3 = request.POST.get('n3')
-        salida = agregar_nota(alumno, asignatura, n1, n2, n3)
+        salida = agregar_nota(alumno, asignatura, year, n1, n2, n3)
         if salida == 1:
             data['mensaje'] = 'agregado correctamente'
+            data['alumnos'] = listar_alumnos()
         else:
              data['mensaje'] = 'No se pudo guardar'
 
@@ -56,9 +59,9 @@ def listar_asignaturas():
         lista.append(fila)
     return lista
 
-def agregar_nota(alumno, asignatura, n1, n2 ,n3):
+def agregar_nota(alumno, asignatura,year, n1, n2 ,n3):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_AGREGAR_NOTAS',[alumno, asignatura, n1, n2, n3,salida])
+    cursor.callproc('SP_AGREGAR_NOTAS',[alumno, asignatura, year, n1, n2, n3,salida])
     return salida.getvalue()
