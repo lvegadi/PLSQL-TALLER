@@ -27,7 +27,11 @@ CREATE OR REPLACE PROCEDURE sp_listar_auditorias(auditorias OUT SYS_REFCURSOR)
 IS
 BEGIN
     OPEN auditorias FOR SELECT * FROM personas_auditoria;
+EXCEPTION
+    WHEN OTHERS THEN
+      v_salida := 0; --Error no contemplado
 END;
+
 
 /* procedimiento Para el CRUD
     salida = 1 --> se inserto la nota

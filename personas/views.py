@@ -65,7 +65,7 @@ def notas_borrar(request, id=None):
 
 def auditorias(request):
     data = {
-        'auditorias': listar_auditorias(),
+        'auditorias': listar_auditorias()
     }
     return render(request, 'notas/auditorias.html', data)
 
