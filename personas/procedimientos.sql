@@ -21,6 +21,14 @@ BEGIN
     OPEN asignaturas FOR SELECT * FROM personas_asignatura WHERE activo = '1';
 END;
 
+
+-- Procedimiento para mostrar las auditoriass
+CREATE OR REPLACE PROCEDURE sp_listar_auditorias(auditorias OUT SYS_REFCURSOR)
+IS
+BEGIN
+    OPEN auditorias FOR SELECT * FROM personas_auditoria;
+END;
+
 /* procedimiento Para el CRUD
     salida = 1 --> se inserto la nota
     salida = 0 --> fallo el insert
