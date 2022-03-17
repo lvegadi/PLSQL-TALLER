@@ -46,7 +46,7 @@ def notas_editar(request, id=None):
             n1 = request.POST.get('n1')
             n2 = request.POST.get('n2')
             n3 = request.POST.get('n3')
-            salida = editar_nota(id, alumno, asignatura, year, n1, n2, n3)
+            salida = editar_nota(id, year, n1, n2, n3)
             if salida == 1:
                 data['mensaje'] = 'editado correctamente'
 
@@ -124,12 +124,12 @@ def agregar_nota(alumno, asignatura, year, n1, n2, n3):
     return salida.getvalue()
 
 
-def editar_nota(nota, alumno, asignatura, year, n1, n2, n3):
+def editar_nota(nota, year, n1, n2, n3):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_EDITAR_NOTAS', [
-                    nota, alumno, asignatura, year, n1, n2, n3, salida])
+                    nota, year, n1, n2, n3, salida])
     return salida.getvalue()
 
 
