@@ -1,5 +1,3 @@
---trigger Auditoria 
-
 create or replace TRIGGER TRIGGER_PERSONAS_AUDITORIA 
 
 BEFORE INSERT OR UPDATE ON PERSONAS_NOTA
@@ -8,6 +6,7 @@ for each row
 DECLARE
 V_INSERT VARCHAR2(100) := 'INSERT-ALUMNO-'||:NEW.alumno_ID;
 V_UPDATE VARCHAR2(100) := 'UPDATE-ALUMNO-'||:NEW.alumno_ID;
+V_DELETE VARCHAR2(100) := 'BORRADO-ALUMNO-'||:NEW.alumno_ID;
 V_user varchar2(30) := user;  --Definir usuario de donde se toma porque el user del sistema es alfanumerico
 
 BEGIN
@@ -42,7 +41,7 @@ BEGIN
             end if; 
             if :old.activo <> :new.activo Then
               insert into  personas_auditoria  (id,accion,campo,valor_old,valor_new,usuario,fecha)
-                values(ISEQ$$_74216.nextval, V_UPDATE,'activo', :old.activo,:new.activo,  v_user,sysdate) ;
+                values(ISEQ$$_74216.nextval, V_DELETE ,'estado', :old.activo,:new.activo,  v_user,sysdate) ;
             end if; 
             if :old.asignatura_id <> :new.asignatura_id Then
               insert into  personas_auditoria  (id,accion,campo,valor_old,valor_new,usuario,fecha)
