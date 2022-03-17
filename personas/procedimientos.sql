@@ -60,8 +60,6 @@ END;
 
 CREATE OR REPLACE PROCEDURE sp_editar_notas(
     v_nota_id NUMBER,
-    v_alumno_id NUMBER,
-    v_asignatura_id NUMBER,
     year_ac NUMBER,
     v_n1 NUMBER,
     v_n2 NUMBER,
@@ -70,7 +68,7 @@ CREATE OR REPLACE PROCEDURE sp_editar_notas(
  ) IS
  BEGIN
     UPDATE personas_nota
-    SET ASIGNATURA_ID = v_asignatura_id, ALUMNO_ID = v_alumno_id, ANO = year_ac, N1 = v_n1, N2 = v_n2, N3 = v_n3
+    SET  ANO = year_ac, N1 = v_n1, N2 = v_n2, N3 = v_n3
     WHERE ID = v_nota_id;
     v_salida := 1;
 
