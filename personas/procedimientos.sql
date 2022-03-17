@@ -49,9 +49,13 @@ CREATE OR REPLACE PROCEDURE sp_agregar_notas(
     COMMIT;
     v_salida := 1;
 
+
 EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN -- an entry was concurrently inserted
+      v_salida := -1;
+        
     WHEN OTHERS THEN
-        v_salida := 0;
+      v_salida := 0; --Error no contemplado
 END;
 
 CREATE OR REPLACE PROCEDURE sp_editar_notas(
@@ -70,9 +74,9 @@ CREATE OR REPLACE PROCEDURE sp_editar_notas(
     WHERE ID = v_nota_id;
     v_salida := 1;
 
-EXCEPTION
-    WHEN OTHERS THEN
-        v_salida := 0;
+  If (sql%rowcount = 0) Then
+        v_salida := -2; --Registro no encontrado
+  end if;
 END;
 
 CREATE OR REPLACE PROCEDURE sp_eliminar_notas(
@@ -85,8 +89,9 @@ CREATE OR REPLACE PROCEDURE sp_eliminar_notas(
     WHERE ID = v_nota_id;
     v_salida := 1;
 
-EXCEPTION
-    WHEN OTHERS THEN
-        v_salida := 0;
+
+    If (sql%rowcount = 0) Then
+        v_salida := -3; --NO se pudo Borrar las notas
+    end if;
 END;
 
