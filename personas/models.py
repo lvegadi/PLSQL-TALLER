@@ -25,9 +25,9 @@ class Nota (models.Model):
 User = settings.AUTH_USER_MODEL
 
 class Auditoria (models.Model):
-    accion = models.CharField(max_length=15)
+    accion = models.CharField(max_length=30)
     campo = models.CharField(max_length=15)
     valor_old = models.CharField(max_length=200)
     valor_new = models.CharField(max_length=200)
     fecha = models.DateTimeField( blank=True, null=True)
-    usuario = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    usuario =  models.CharField(max_length=15,default='C##PERSONAS');
